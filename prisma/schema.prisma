@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id            Int            @id @default(autoincrement())
+  name          String
+  users         User[]
+  organizations Organization[]
+  contacts      Contact[]
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  accountId       Int
+  firstName       String
+  lastName        String
+  email           String    @unique
+  emailVerifiedAt DateTime?
+  password        String
+  owner           Boolean   @default(false)
+  photo           String?
+  account         Account?  @relation(fields: [accountId], references: [id])
+}
+
+model Organization {
+  id         Int       @id @default(autoincrement())
+  accountId  Int
+  name       String
+  email      String?
+  phone      String?
+  address    String?
+  city       String?
+  region     String?
+  country    String?
+  postalCode String?
+  account    Account?  @relation(fields: [accountId], references: [id])
+  contacts   Contact[]
+}
+
+model Contact {
+  id             Int           @id @default(autoincrement())
+  accountId      Int
+  organizationId Int?
+  firstName      String
+  lastName       String
+  email          String?
+  phone          String?
+  address        String?
+  city           String?
+  region         String?
+  country        String?
+  postalCode     String?
+  account        Account?      @relation(fields: [accountId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <% if (process.env.NODE_ENV==='development' ) { %>
+
+    <!-- Scripts for development -->
+    <script type="module" src="http://localhost:3000/@vite/client"></script>
+    <script type="module" src="http://localhost:3000/main.ts"></script>
+
+    <% } else { %>
+
+      <!-- Assets for production taken from generated manifest file -->
+      <link rel="stylesheet" href="/<%= manifest['main.ts'].css %>" />
+      <script type="module" src="/<%= manifest['main.ts'].file %>"></script>
+
+      <% } %>
+</head>
+
+<body>
+  <div id="app" data-page="<%= inertiaData %>"></div>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+import{_ as a}from"./main.9c0acb45.js";import{o as c,c as n,m as _,e as l}from"./vendor.6e7344dd.js";var d=(e,s)=>{const o=e.__vccOpts||e;for(const[t,r]of s)o[t]=r;return o};const f={},m={class:"h-full"};function i(e,s){const o=a;return c(),n("div",m,[_(e.$slots,"default"),l(o)])}var v=d(f,[["render",i]]);export{v as L,d as _};
