@@ -31,7 +31,7 @@ import { ReportsModule } from './reports/reports.module'
         DATABASE_URL: Joi.string().default(
           'postgresql://postgres@localhost:5432/postgres',
         ),
-        REDIS_URL: Joi.string().default('localhost:6379'),
+        REDIS_URL: Joi.string().default('redis://localhost:6379'),
       }),
     }),
     MulterModule,
