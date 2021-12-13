@@ -28,6 +28,10 @@ import { ReportsModule } from './reports/reports.module'
       isGlobal: true,
       validationSchema: Joi.object({
         SESSION_SECRET: Joi.string().default('secret'),
+        DATABASE_URL: Joi.string().default(
+          'postgresql://postgres@localhost:5432/postgres',
+        ),
+        REDIS_URL: Joi.string().default('localhost:6379'),
       }),
     }),
     MulterModule,
@@ -59,18 +63,10 @@ export class AppModule {
 
     let manifest: any
     if (process.env.NODE_ENV === 'production') {
-      manifest = (await readManifest(
+      manifest = await readManifest(
         join(__dirname, '..', '/public/manifest.json'),
-      )) || {
-        version: '1',
-      }
+      )
     }
-    console.log(
-      'path',
-      process.env.NODE_ENV,
-      manifest,
-      join(__dirname, '..', '/public/manifest.json'),
-    )
 
     consumer
       .apply(

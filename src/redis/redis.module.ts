@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import * as Redis from 'redis'
 
 import { REDIS } from './redis.constants'
@@ -7,7 +8,10 @@ import { REDIS } from './redis.constants'
   providers: [
     {
       provide: REDIS,
-      useValue: Redis.createClient(),
+      useFactory: async (config: ConfigService) => {
+        const url = config.get<string>('REDIS_URL')
+        return Redis.createClient({ url })
+      },
     },
   ],
   exports: [REDIS],
