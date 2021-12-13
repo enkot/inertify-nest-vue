@@ -8,7 +8,7 @@
     "prebuild": "rimraf dist && npm run db:generate && npm run db:migrate:deploy && npm run db:seed",
     "build": "nest build && cd client && vite build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "NODE_ENV=production nest start",
+    "start": "NODE_ENV=production node dist/main.js",
     "dev": "NODE_ENV=development concurrently \"npm:start:debug\" \"npm:start:client\" -c \"blue,green\" -k",
     "start:client": "cd client && vite",
     "start:server": "nest start --watch",
